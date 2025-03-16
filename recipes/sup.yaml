@@ -1,0 +1,26 @@
+global_prefix: "[{shortname}] "
+
+global_labels:
+  - "M-tracking"
+  - "M-SUP"
+
+parent_issue:
+  title: "[Tracking] {title}"
+  body: |
+    To search for and keep track of this issue's subtasks, use the following short name: `{shortname}`
+
+issues:
+  - title: "Write design doc"
+    body: |
+      Design doc checklist (see the [SDLC](https://devdocs.optimism.io/pm/sdlc.html)):
+      
+      - [ ] Post design doc as a PR in either the `design-docs` or `design-docs-private` repositories
+      - [ ] Announce the PR in the [#pm channel](https://discord.com/channels/1244729134312198194/1244729134848938033) on Discord
+      - [ ] Loop in the leads of each team that might be impacted by your change
+      - [ ] Schedule design review meeting
+  - title: "Review design doc"
+  - title: "Write specs"
+  - title: "Write FMA"
+  - title: "Review FMA"
+  - title: "Complete audit"
+  - title: "Complete draft governance post"

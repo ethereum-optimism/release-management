@@ -1,12 +1,20 @@
+from dataclasses import dataclass, field
+
 from github import Github
 from github.Repository import Repository
 from github.Issue import Issue
 from github.Label import Label
 from github.GithubException import GithubException
-from typing import Optional, Any, Dict
+from typing import Optional, Any, Dict, List
 import requests
 
-from . import ConfigIssue
+
+@dataclass
+class GithubIssue:
+    title: str
+    body: Optional[str] = None
+    labels: List[str] = field(default_factory=list)
+
 
 class GitHubClient:
     def __init__(self, token: str, repo_name: str):
@@ -15,11 +23,11 @@ class GitHubClient:
         self.github = Github(token)
         self.repo: Repository = self.github.get_repo(repo_name)
         self.known_labels: Dict[str, Label] = {}
-        
+
     def get_or_create_label(self, name: str) -> Label:
         if name in self.known_labels:
             return self.known_labels[name]
-            
+
         try:
             label = self.repo.get_label(name)
             self.known_labels[name] = label
@@ -31,7 +39,7 @@ class GitHubClient:
                 return label
             raise
 
-    def add_issue(self, issue: ConfigIssue) -> Issue:
+    def add_issue(self, issue: GithubIssue) -> Issue:
         labels = [self.get_or_create_label(label) for label in issue.labels]
 
         return self.repo.create_issue(
@@ -53,20 +61,19 @@ class GitHubClient:
             """ % (project_id, issue.node_id),
             variables={"projectId": project_id, "issueId": issue.id}
         )
-        
-        
-    def add_sub_issue(self, issue: ConfigIssue, parent_issue: Issue) -> Issue:
+
+    def add_sub_issue(self, parent: Issue, child: GithubIssue) -> Issue:
         # First create the issue normally
-        issue = self.add_issue(issue)
-        
+        child_issue = self.add_issue(child)
+
         # Then link it as a sub-issue using GitHub's API
         self._make_github_request(
             method="POST",
-            path=f"issues/{parent_issue.number}/sub_issues",
-            data={"sub_issue_id": issue.id, "replace_parent": True}
+            path=f"issues/{parent.number}/sub_issues",
+            data={"sub_issue_id": child_issue.id, "replace_parent": True}
         )
-        
-        return issue
+
+        return child_issue
 
     def _make_github_request(self, method: str, path: str, data: Optional[Dict[str, Any]] = None) -> requests.Response:
         owner, repo = self.repo_name.split('/')
@@ -78,31 +85,31 @@ class GitHubClient:
             "Authorization": f"Bearer {self.token}",
             "X-GitHub-Api-Version": "2022-11-28"
         }
-        
+
         response = requests.request(method, url, headers=headers, json=data)
         response.raise_for_status()
         return response
-        
+
     def _make_graphql_request(self, query: str, variables: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         url = "https://api.github.com/graphql"
-        
+
         headers = {
             "Content-Type": "application/json",
             "Authorization": f"Bearer {self.token}",
             "Accept": "application/vnd.github+json",
             "X-GitHub-Api-Version": "2022-11-28"
         }
-        
+
         data = {
             "query": query,
             "variables": variables or {}
         }
-        
+
         response = requests.post(url, headers=headers, json=data)
         response.raise_for_status()
-        
+
         result = response.json()
         if "errors" in result:
             raise Exception(f"GraphQL query failed: {result['errors']}")
-            
+
         return result["data"]

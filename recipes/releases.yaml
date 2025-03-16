@@ -1,9 +1,10 @@
-project_id: "PVT_kwDOA4EWJM4AwluD"
+global_prefix: "[U{upgrade_number}] "
+
+global_labels:
+  - "M-tracking-{upgrade_number}"
 
 parent_issue:
   title: "Release Readiness Tracker"
-  labels:
-    - "M-tracking"
 
 issues:
   - title: "Code complete"
