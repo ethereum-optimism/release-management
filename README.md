@@ -5,7 +5,8 @@ database to house issues for the release management tracker.
 
 ## Prerequisites
 
-You will need to install [uv][uv] to use this project.
+You will need to install [uv][uv] to use this project. You will also need to replace the `.env.example` with a
+`.env` file containing a valid GitHub PAT for all repos you want to create issues in.
 
 [uv]: https://docs.astral.sh/uv/getting-started/installation/
 
