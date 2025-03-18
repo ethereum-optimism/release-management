@@ -8,7 +8,7 @@ import click
 import time
 
 from releaseman.projects import get_project_slugs
-from releaseman.tasks import create_prefixed_issues
+from releaseman.tasks import create_prefixed_issues, rename_issues
 
 load_dotenv()  # Load environment variables from .env file
 
@@ -67,6 +67,19 @@ def sup(repo: str, project: str, shortname: str, title: str):
         }
     )
 
+
+@cli.command()
+@click.option('--repo', '-r', required=True, type=str, help='The repository to search in',
+              default='ethereum-optimism/release-management')
+@click.option('--find', '-f', required=True, type=str, help='The text to search for')
+@click.option('--replace', '-r', required=True, type=str, help='The text to replace with')
+@click.option('--dry-run', '-d', is_flag=True, help='Only print the changes that would be made')
+def replace(repo: str, find: str, replace: str, dry_run: bool):
+    """
+    Performs a bulk find-and-replace across multiple issues in a repo.
+    """
+    github = GitHubClient(os.getenv("GITHUB_TOKEN"), repo)
+    rename_issues(github=github, find=find, replace=replace, dry_run=dry_run)
 
 if __name__ == "__main__":
     cli(prog_name='releaseman')

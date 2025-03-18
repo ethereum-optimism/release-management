@@ -1,5 +1,5 @@
 import os
-from typing import Optional
+from typing import Optional, Union
 
 from releaseman import Recipe
 from releaseman.github import GitHubClient, GithubIssue
@@ -32,3 +32,22 @@ def create_prefixed_issues(
             labels=[label.format(**template_context) for label in recipe.global_labels + issue.labels],
         ))
         print(f"Created sub-issue #{child.number}: {child.title}")
+
+
+def rename_issues(github: GitHubClient, find: str, replace: str, field: str = 'title', dry_run: bool = False):
+    if dry_run:
+        print('DRY RUN - issues will not be renamed')
+
+    issues = github.search_issues(find)
+
+    for issue in issues:
+        match_field = getattr(issue, field)
+
+        if find not in match_field:
+            continue
+
+        new_field = match_field.replace(find, replace)
+        if not dry_run:
+            github.update_issue(issue.number, **{field: new_field})
+
+        print(f'Issue #{issue.number}: Renamed {field} {match_field} -> {new_field}')

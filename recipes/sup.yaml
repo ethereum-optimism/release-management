@@ -1,13 +1,14 @@
 global_prefix: "[{shortname}] "
 
 global_labels:
-  - "M-tracking"
   - "M-SUP"
 
 parent_issue:
   title: "[Tracking] {title}"
   body: |
     To search for and keep track of this issue's subtasks, use the following short name: `{shortname}`
+  labels:
+    - "M-tracking"
 
 issues:
   - title: "Write design doc"
@@ -21,6 +22,7 @@ issues:
   - title: "Review design doc"
   - title: "Write specs"
   - title: "Write FMA"
+  - title: "Implementation"
   - title: "Review FMA"
   - title: "Complete audit"
   - title: "Complete draft governance post"

@@ -1,11 +1,12 @@
 from dataclasses import dataclass, field
 
 from github import Github
+from github.PaginatedList import PaginatedList
 from github.Repository import Repository
 from github.Issue import Issue
 from github.Label import Label
 from github.GithubException import GithubException
-from typing import Optional, Any, Dict, List
+from typing import Optional, Any, Dict, List, Generic
 import requests
 
 
@@ -74,6 +75,21 @@ class GitHubClient:
         )
 
         return child_issue
+
+    def search_issues(self, query: str) -> PaginatedList[Issue]:
+        return self.github.search_issues(query=query, type='issue', repo=self.repo_name)
+
+    def update_issue(self, issue_id: int, title: Optional[str] = None, body: Optional[str] = None):
+        issue = self.repo.get_issue(issue_id)
+
+        edit_args = {}
+        if title:
+            edit_args['title'] = title
+        if body:
+            edit_args['body'] = body
+        assert len(edit_args) > 0, "Must specify at least one field to update"
+
+        return issue.edit(**edit_args)
 
     def _make_github_request(self, method: str, path: str, data: Optional[Dict[str, Any]] = None) -> requests.Response:
         owner, repo = self.repo_name.split('/')
