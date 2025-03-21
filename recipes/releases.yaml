@@ -8,6 +8,13 @@ parent_issue:
 
 issues:
   - title: "Code complete"
+  - title: "Define acceptance tests"
+    body: |
+      Create a list of the acceptance tests that will be used to validate the release.
+
+      Identify the acceptance tests that apply to each network deployment (Alphanet, Betanet, Sepolia and mainnet).
+
+      Make sure to note which tests will be run manually vs. which ones will be automated.
   - title: "Cut contracts release"
   - title: "Integrate with OPCM/OP Deployer"
   - title: "Implement new StandardValidator"
@@ -15,6 +22,8 @@ issues:
   - title: "Complete FMA"
   - title: "Complete audits"
   - title: "Add audits to monorepo"
+  - title: "Automate acceptance tests"
+    body: "Automate any acceptance tests previously identified as being required to validate the release."
   - title: "Deploy to Alphanet"
   - title: "Deploy to Betanet"
   - title: "Draft governance post"
