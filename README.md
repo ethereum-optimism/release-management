@@ -18,7 +18,7 @@ To run the CLI, run `./releaseman.sh <args>`. To see command help run `./release
 
 #### `./releaseman.sh release [OPTIONS]`
 
-Creates issues for a numbered release. Parent issues represent the release, and child issues represent each step in the
+Creates issues for a numbered release. Parent issues represent the "[U{upgrade_number}] Interop Contracts Release Readiness Tracker", and child issues represent each step in the
 release process. Used by the release management [board].
 
 [board]: https://github.com/orgs/ethereum-optimism/projects/117/views/12

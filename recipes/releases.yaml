@@ -4,7 +4,7 @@ global_labels:
   - "M-tracking-{upgrade_number}"
 
 parent_issue:
-  title: "Release Readiness Tracker"
+  title: "[U{upgrade_number}] Interop Contracts Release Readiness Tracker"
 
 issues:
   - title: "Code complete"
