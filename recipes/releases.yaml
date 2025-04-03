@@ -2,6 +2,8 @@ global_prefix: "[U{upgrade_number}] "
 
 global_labels:
   - "M-tracking-{upgrade_number}"
+  - "custom-label-1"
+  - "custom-label-2"
 
 parent_issue:
   title: "[U{upgrade_number}] Interop Contracts Release Readiness Tracker"
@@ -46,4 +48,3 @@ issues:
   - title: "Execute mainnet superchain-ops task"
   - title: "Roll mainnet reminder comms"
   - title: "Activate HF on mainnet"
-  
