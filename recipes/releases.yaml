@@ -24,8 +24,6 @@ issues:
   - title: "Add audits to monorepo"
   - title: "Automate acceptance tests"
     body: "Automate any acceptance tests previously identified as being required to validate the release."
-  - title: "Deploy to Alphanet"
-  - title: "Deploy to Betanet"
   - title: "Draft governance post"
   - title: "Update Standard Rollup Charter"
   - title: "Roll initial hardfork notification comms"
