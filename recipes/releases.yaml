@@ -39,7 +39,18 @@ issues:
   - title: "Write mainnet superchain-ops task"
   - title: "Cut mainnet release"
   - title: "Finalize release tags"
-    body: "After governance approval, vX.Y.Z-rc.x releases should be finalized as vX.Y.Z."
+    body: |
+      After governance approval, vX.Y.Z-rc.x releases should be finalized as vX.Y.Z.
+      
+      - [ ] op-node
+      - [ ] op-geth
+      - [ ] op-proposer
+      - [ ] op-batcher
+      - [ ] op-challenger
+      - [ ] op-program
+      - [ ] op-contracts
+      - [ ] op-deployer
+      - [ ] op-supervisor
   - title: "Send Foundation approval e-mail"
   - title: "Roll comms to mainnet partners"
   - title: "Complete signing ceremony"
