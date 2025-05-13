@@ -54,6 +54,11 @@ issues:
   - title: "Send Foundation approval e-mail"
   - title: "Roll comms to mainnet partners"
   - title: "Complete signing ceremony"
-  - title: "Execute mainnet superchain-ops task"
   - title: "Roll mainnet reminder comms"
+  - title: "Execute mainnet superchain-ops task"
+  - title: "Contract Verification"
+    body: |
+      Verify contract implementations on -scan explorers.
+      
+      Ensure both L1 and L2 contracts are verified, especially on any Stage 1 chains.
   - title: "Activate HF on mainnet"
