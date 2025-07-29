@@ -31,6 +31,21 @@ Options:
 -u, --upgrade-number INTEGER The upgrade number to use [required]
 --help Show this message and exit.
 ```
+#### `./releaseman.sh replace [OPTIONS]`
+
+Performs a bulk find-and-replace across multiple issues in a repo. Used by the release management [board].
+
+[board]: https://github.com/orgs/ethereum-optimism/projects/117/views/12
+
+Options:
+
+```
+-r, --repo TEXT     The repository to search in [required]
+-f, --find TEXT     The text to search for [required]
+-r, --replace TEXT  The text to replace with [required]
+-d, --dry-run       Only print the changes that would be made
+--help              Show this message and exit.
+```
 
 #### `./releaseman.sh sup [OPTIONS]`
 
